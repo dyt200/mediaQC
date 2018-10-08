@@ -1,0 +1,79 @@
+	{% load static %}
+
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
+		<title>{{ material.material_text }}</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'QC/lib/lightGallery/dist/css/lightgallery.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'QC/css/detail.css' %}">
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	</head>
+		<div class="header">
+			<div class="header-title">{{ material.material_text }}</div>
+		</div>
+	<body class="home">
+		<div class="container">
+			<div class="section">
+				<div class="section-title">Images: </div>
+			    	<div class="picture-parent">
+			            <div id="lightgallery" class="cell-block">
+
+						{% for media in material.media_set.all %}
+
+							{% if media.mime_type == "image/png" or media.mime_type == "image/jpeg" %}
+
+							<div class="cell" data-src="{{media.file.url}}" data-sub-html="<h4>{{ media.name }}</h4><p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>">
+									<a href="" class="">
+				                        <img class="picture-element" src="{{media.file.url}}">
+				               		</a>
+			               	</div>
+
+							{% endif %}
+			        	  
+						{% endfor %}
+
+			    		</div>
+			    	</div>
+			    </div>
+		</div>
+
+	<div class="section">
+
+	    	<div class="section-title">Videos: <h2>
+
+	    	<div style="display: inline-block;">
+	            <ul id="" class="list-unstyled row">
+
+	{% for media in material.media_set.all %}
+
+		{% if media.mime_type == "video/mp4" %}
+		
+   						<video width="45%" height="240" controls>
+						  <source src="{{media.file.url}}" type="video/mp4">
+						  Your browser does not support the video tag.
+						</video>
+
+		{% endif %}
+	        	  
+	{% endfor %}
+	    		</ul>
+	    	</div>
+	</div>
+
+	      <script type="text/javascript">
+	        $(document).ready(function(){
+	            $('#lightgallery').lightGallery();
+	        });
+	        </script>
+	        <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script> 
+	        <script src="{% static 'QC/lib/lightGallery/dist/js/lightgallery.min.js'%}"></script>
+	        <script src="{% static 'QC/lib/lightGallery/lib/jquery.mousewheel.min.js'%}"></script>
+		
+	</body>
+	</html>
+
+
+
+

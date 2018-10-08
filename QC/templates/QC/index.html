@@ -1,0 +1,45 @@
+{% extends 'QC/base.html' %}
+<h1>Materials</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% block content %}
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand mx-auto" href="#">MATERIALS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            {% for material in material_list %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ material.id }}</th>
+                    <td><a href="{% url 'QC:detail' material.id %}">{{ material.material_text }}</a></td>
+                    <td>video</td>
+                    {% if material.status == "in process"%}
+                    <td class="bg-warning ">{{ material.status|title }}</td>
+                    {% elif material.status == "accepted"%}
+                    <td class="bg-success ">{{ material.status|title }}</td>
+                    {% elif material.status == "rejected"%}
+                    <td class="bg-danger ">{{ material.status|title }}</td>
+                    {% endif %}
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
